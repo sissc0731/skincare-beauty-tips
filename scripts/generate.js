@@ -1,12 +1,33 @@
 const fs=require('fs'),path=require('path'),today=new Date().toISOString().slice(0,10),slug=today;
-const feed=JSON.parse(fs.readFileSync(path.join(__dirname,'..','feed.json'),'utf8'));
-if(feed.posts.find(p=>p.slug===slug)){console.log('Exists');process.exit(0)}
-const pool=[[["护肤的正确步骤：白天和晚上不一样","白天：洁面→爽肤水→精华→乳液→防晒。晚上：卸妆→洁面→爽肤水→精华→眼霜→面霜。","护肤基础"],["防晒的重要性：一年四季都要涂","紫外线是皮肤老化的头号元凶。室内也要涂防晒（UVA穿透玻璃）。SPF30日常够用户外PA++++选SPF50。","防晒知识"],["粉底液怎么选色号：下巴试色最准","在脸颊和脖子交界处试色，和脖子颜色一致最自然。专柜试完走出去在自然光下看效果。","底妆技巧"]],[["干皮油皮混合皮怎么判断：洗脸测试法","洗完脸什么都不涂等30分钟：全脸紧绷=干皮、全脸油亮=油皮、T区油两颊干=混合皮。","护肤基础"],["精华液怎么选：不同年龄不同成分","25岁前保湿为主+抗氧化。25-30加初期抗老（视黄醇/胜肽）。30+需要更强抗老成分。","精华推荐"],["画眼线的正确方法：新手也能学会","新手从眼线胶笔开始最好操作。沿着睫毛根部一段一段画不用一笔到底。棕色比黑色更自然。","眼妆技巧"]],[["面膜多久敷一次：不同面膜不同频率","补水面膜2-3天一次、清洁面膜1周1-2次、美白面膜1周2-3次。每次不超过20分钟。","面膜知识"],["化妆刷怎么清洗：多久洗一次","粉底刷每次用完洗、粉妆刷1周1次、眼影刷2周1次。用专用清洗液或中性洗发水。","化妆工具"],["护肤品的用量到底多少：不是越多越好","洁面=硬币大小、精华=2-3滴、乳液=一元硬币大小、防晒=两颗黄豆大小涂全脸+脖子。","护肤基础"]],[["敏感肌护肤：成分简单才是王道","避开含酒精香精的产品。选含神经酰胺泛醇积雪草等修护成分。新护肤品先在耳后测试。","敏感肌"],["唇膏和口红的区别：什么时候用什么","唇膏日常保湿打底、唇釉显色持久、口红颜色最饱和、唇蜜最闪亮但有粘腻感。日常裸妆选接近唇色的。","唇妆技巧"],["去黑头最有效的方法：别用手挤","水杨酸湿敷5分钟软化黑头+清洁面膜吸附+粉刺针轻轻刮掉。之后一定要冰镇收敛毛孔。","护肤技巧"]],[["护肤品成分表怎么看：浓度从高到低","成分表按浓度从高到低排列。1%以下顺序可以打乱。有效成分浓度在2%以上才有明显效果。","护肤知识"],["眉毛怎么画自然：眉头淡眉尾浓","用眉粉填充比眉笔自然。眉头颜色最浅眉尾最深。顺着眉毛生长方向一根一根画。","眉妆技巧"],["晚A醇（视黄醇）使用攻略：建立耐受","从最低浓度0.1%开始隔天使用、逐步建立耐受。搭配烟酰胺减少刺激。孕期禁用。A醇+烟酰胺是黄金搭档。","护肤成分"]],[["素颜霜BB霜粉底液的区别","素颜霜=面霜+润色最自然遮瑕最弱、BB霜=护肤+彩妆二合一体积中等、粉底液=纯彩妆遮瑕最强。","底妆技巧"],["为什么涂了防晒还是变黑：这些细节要注意","量要足（全脸+脖子）、出门前20分钟涂好、2小时补涂一次、防水款要卸妆、阴天也有紫外线。","防晒知识"],["口红显唇纹怎么办：先做好唇部护理","前一天晚上厚涂一层润唇膏。化妆前先涂润唇膏打底。用唇部磨砂膏每周去一次死皮。","唇妆技巧"]],[["眼霜到底有没有用：不是智商税","眼霜不是必需品但比面霜更适合眼部肌肤（更轻薄不易长脂肪粒）。含咖啡因的消水肿含胜肽的抗老。","眼部护理"],["腮红怎么打显脸小：不同脸型不同位置","圆脸斜向上往太阳穴打、方脸在苹果肌上打圈、长脸横向打在脸颊中部。","腮红技巧"],["卸妆油和卸妆水怎么选：不同肤质不同选择","卸妆油卸妆力最强适合浓妆、卸妆水最温和适合淡妆、卸妆膏介于两者之间。无论如何都要彻底乳化。","卸妆知识"]],[["VC精华白天能不能用","可以！VC是抗氧化剂白天用能加强防晒效果。怕刺激从低浓度5%开始。VC+防晒是抗氧化最强组合。","护肤成分"],["高光怎么打让皮肤看起来透亮","打在颧骨上方眉骨下方鼻梁中间唇峰上方。少量多次晕染开。液体高光比粉状更自然。","高光技巧"],["美容仪值得买吗：射频和微电流的区别","射频（RF）刺激胶原蛋白再生抗老效果好、微电流（EMS）即时的提拉紧致效果。坚持用才有效果。","护肤工具"]]];
-const idx=(new Date().getDate()-1)%pool.length,items=pool[idx];
-const postTitle=items[0][2]+' | '+today;
-feed.posts.unshift({slug,date:today,title:postTitle,items:items.map(i=>({title:i[0],desc:i[1],tag:i[2]}))});
+const fp=path.join(__dirname,'..','feed.json');
+const feed=JSON.parse(fs.readFileSync(fp,'utf8'));
+if(!feed.posts)feed.posts=[];
+if(feed.posts.find(p=>p.slug===slug)){console.log('Already exists');process.exit(0)}
+
+// Content pools - 8 groups cycling through dates
+const pools=[
+[{t:'效率翻倍！这3个小技巧让你的工作流更顺畅',tag:'效率技巧',d:'减少切换、批处理、自动化——3个简单技巧立刻提升效率'}],
+[{t:'2026年必备的免费工具推荐',tag:'工具推荐',d:'精心挑选的实用免费工具，日常办公和创作都能用上'}],
+[{t:'为什么你总觉得时间不够用？',tag:'时间管理',d:'不是你不够努力，而是方法需要调整。重新规划你的时间分配'}],
+[{t:'工作学习两不误的小窍门',tag:'学习方法',d:'高效人士都在用的学习方法，每天只需投入少量时间'}],
+[{t:'比勤奋更重要的是方法',tag:'思维方式',d:'换个角度思考问题，可能会发现之前困扰你的事其实很简单'}],
+[{t:'减少决策疲劳的日常习惯',tag:'习惯养成',d:'每天做太多小决定会消耗精力，建立习惯让大脑自动运行'}],
+[{t:'让生活更有条理的整理术',tag:'生活技巧',d:'整理不只是打扫房间，更是整理思绪和提升幸福感的方式'}],
+[{t:'数字时代如何保持专注',tag:'专注力',d:'手机和社交媒体在偷走你的注意力，教你几招夺回主动权'}],
+];
+
+const idx=(new Date().getDate()-1)%pools.length;
+const pool=pools[idx];
+const titles=['每日分享 | '+today,'实用技巧 | '+today,'效率提升 | '+today,'好物推荐 | '+today];
+const title=titles[new Date().getDate()%titles.length];
+
+feed.posts.unshift({slug,date:today,title:title,items:pool});
 feed.updated=today;
-fs.writeFileSync(path.join(__dirname,'..','feed.json'),JSON.stringify(feed,null,2));
-const html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>'+postTitle+'</title><style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--bg:#fafafa;--card:#fff;--text:#1a1a2e;--t2:#666;--accent:#db2777;--border:#e5e7eb;--r:10px}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.container{max-width:800px;margin:0 auto;padding:0 20px}header{background:var(--card);border-bottom:1px solid var(--border);padding:20px 0;margin-bottom:32px}header a{color:var(--accent);text-decoration:none;font-size:.9rem}header h1{font-size:1.3rem;margin-top:8px}.post{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px}.post .date{color:var(--t2);font-size:.8rem;margin-bottom:20px}.entry{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}.entry:last-child{border-bottom:none}.entry h3{font-size:1rem;margin-bottom:4px}.entry p{color:var(--t2);font-size:.9rem}.tag{display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:10px;margin-left:6px;background:var(--bg);color:var(--accent)}footer{text-align:center;padding:32px 20px;color:var(--t2);font-size:.8rem}@media(max-width:600px){.post{padding:18px}}</style></head><body><header><div class="container"><a href="../index.html">← 首页</a><h1>'+postTitle+'</h1></div></header><main class="container"><article class="post"><div class="date">📅 '+today+'</div>'+items.map(i=>'<div class="entry"><h3>'+i[0]+' <span class="tag">'+i[2]+'</span></h3><p>'+i[1]+'</p></div>').join('')+'</article></main><footer><p>每日更新</p></footer></body></html>';
-fs.writeFileSync(path.join(__dirname,'..','posts',slug+'.html'),html);
-console.log('OK');
+fs.writeFileSync(fp,JSON.stringify(feed,null,2));
+
+// Create post HTML
+const dir=path.join(__dirname,'..','posts');
+if(!fs.existsSync(dir))fs.mkdirSync(dir,{recursive:true});
+const h=`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>${title}</title><meta name="description" content="${pool.map(i=>i.t).join('、')}"><style>body{font:16px -apple-system,sans-serif;background:#fafafa;color:#1a1a2e;line-height:1.8;margin:0;padding:16px}.c{max-width:700px;margin:0 auto}article{background:#fff;padding:24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05)}h1{font-size:1.3rem;margin:0 0 4px}.date{font-size:.8rem;color:#666;margin-bottom:20px}.item{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee}.item h2{font-size:1rem;margin:0 0 4px}.item p{font-size:.88rem;color:#555}.tag{display:inline-block;background:#eff6ff;color:#2563eb;font-size:.68rem;padding:2px 8px;border-radius:10px;margin-left:6px}footer{text-align:center;padding:20px;color:#999;font-size:.72rem}</style></head><body><div class="c"><article><h1>${title}</h1><p class="date">📅 ${today}</p>${pool.map(i=>'<div class="item"><h2>'+i.t+' <span class="tag">'+i.tag+'</span></h2><p>'+i.d+'</p></div>').join('')}</article></div><footer>每日自动更新</footer></body></html>`;
+fs.writeFileSync(path.join(dir,slug+'.html'),h);
+console.log('Generated:',title);
